@@ -1,0 +1,33 @@
+https://www.youtube.com/watch?v=NbdiFekUa9k
+
+Logica do JS >>>
+
+1° Criar variavel do valor digitado no Input
+2° Criar variavel de cada Input radio
+3° Criar variavel da mensagem que ira aparecer
+4° Criar variavel do botao converter
+5° Criar variavel do botao Limpar
+6° Criar variaveis dos valores monetarios e dps atribuir uma variavel referente ao valor atualizado da API
+7° Criar uma variavel da moedaEstrangeira e moedaConvertida [VAZIAS]
+8° Criar uma funçao mensagem FORMATADA para exibir valores monetarios, fazer uma verificaçao para ver se o VALOREMREAL nao for numerico
+9° Criar um escoltador de eventos para depois inserir-lo no evento de CLICK 
+
+Dentro do escoltador pegar o valor digitado em real(input) o value dele e transformar em parseFloat
+
+10° Usar o laço for, para fazer uma verificaçao de qual moeda estrangeira foi selecionada: "Se a moeda selecionada na posicao 0, estiver checkada eu vou pegar o texto dela e escrever no console"
+11° Agora iremos criar uma estrutura SWITCH CASE para criar um caso para cada moeda que foi selecionada
+
+Dentro de cada case devemos criar uma variavel: "moedaConvertida" e dentro dela dividir o valor do real pela moeda do case em especifico.
+E dentro do case devemos criar uma variavel mensagemFormatada que ira transformar o valor da moedaConvertida para seu SIMBOLO :$€£ usando LocaleString
+No caso do BITCOIN devemos atribuir a propriedade .toFixed, para limitar as casas decimais
+
+E devemos criar um caso DEFAULT para caso a pessoa nao digite o valor
+
+Por ultimo ainda dentro do case devemos fazer uma verificaçao para ver se o a moedaConvertida nao é um valor numerico (NAN)
+
+12° Devemos criar um escoltador de eventos conectado ao botao LIMPAR, que ira fazer as seguintes coisas:
+
+Dara um FOCO no valorDigitado()
+Ira limpar o valor do valor digitado
+Ira inserir a mensagem padrao de: 'Digite o valor, escolha a moeda e converter'
+Ira deixar todos os input RADIOS Limpos
