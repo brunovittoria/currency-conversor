@@ -6,6 +6,8 @@ let valorDigitado = document.querySelector('#valorEmReal')
 
 // Selecionar os elementos radios (criar um array deles)
 let moedaSelecionada = document.getElementsByName('moedaEstrangeira')
+
+// Selecionar o elemento aviso pra poder mudar o conteudo
 let aviso = document.querySelector('#aviso')
 
 // Selecionar os botoes
@@ -17,55 +19,6 @@ let valorEmReal = 0
 
 let moedaEstrangeira = ''
 let moedaConvertida = ''
-
-
-
-// PEGANDO DADOS DA API PARA CONVERTER
-
-async function pegarDadosAPI() {
-    await fetch('https://v6.exchangerate-api.com/v6/290988fdcfedb027156fa5a3/latest/USD')
-    .then(response => response.json())
-    .then(rates => {
-
-        let { BRL, EUR, GBP, USD } = rates.conversion_rates
-
-        btnConverter.addEventListener('click', () => {
-            valorEmReal = parseFloat(valorDigitado.value)
-
-            for(let i = 0; i < moedaSelecionada.length; i++) {
-                if(moedaSelecionada[i].checked) {
-                    moedaEstrangeira = moedaSelecionada[i].value
-                }
-            }
-
-            switch(moedaEstrangeira) {
-
-                case 'USD':
-                    moedaConvertida = valorEmReal / BRL
-                    mensagemFormatada(moedaConvertida.toLocaleString('en-US', {style: 'currency', currency: 'USD'}))
-                break
-
-                case 'EUR':
-                    moedaConvertida = valorEmReal / (BRL/EUR)
-                    mensagemFormatada(moedaConvertida.toLocaleString('de-DE', {style: 'currency', currency: 'EUR'}))
-                break
-
-                case 'GBP':
-                    moedaConvertida = valorEmReal / (BRL/GBP)
-                    mensagemFormatada(moedaConvertida.toLocaleString('en-GB', {style: 'currency', currency: 'GBP'}))
-                break
-
-                default:
-                    aviso.textContent = 'Escolha uma moeda estrangeira'
-            }
-            isNaN(moedaConvertida) ? moedaConvertida = 0 : ''
-        }) // Fim do escoltador BTNCONVERTER
-
-    }) // Fim do .then(rates => { processar dados})
-}
-
-/* CHAMAR A API PRA PEGAR COTACOES */
-pegarDadosAPI()
 
 
 // Mensagem FORMATADA para exibir os VALORES MONETARIOS CONVERTIDOS
@@ -101,11 +54,68 @@ function ativarBotao() {
 }
 
 
+// PEGANDO DADOS DA API PARA CONVERTER
+
+async function pegarDadosAPI() {
+    await fetch('https://v6.exchangerate-api.com/v6/290988fdcfedb027156fa5a3/latest/USD')
+    .then(response => response.json())
+    .then(rates => {
+
+        let { BRL, EUR, GBP, USD } = rates.conversion_rates
+
+        btnConverter.addEventListener('click', () => {
+            valorEmReal = parseFloat(valorDigitado.value)
+
+            for(let i = 0; i < moedaSelecionada.length; i++) {
+                if(moedaSelecionada[i].checked) {
+                    moedaEstrangeira = moedaSelecionada[i].value
+                    console.log(moedaEstrangeira)
+                }
+            }
+
+            switch(moedaEstrangeira) {
+
+                case 'USD':
+                    moedaConvertida = valorEmReal / BRL
+                    console.log(BRL)
+                    mensagemFormatada(moedaConvertida.toLocaleString('en-US', {style: 'currency', currency: 'USD'}))
+                break
+
+                case 'EUR':
+                    moedaConvertida = valorEmReal / (BRL/EUR)
+                    console.log(BRL/EUR)
+                    mensagemFormatada(moedaConvertida.toLocaleString('de-DE', {style: 'currency', currency: 'EUR'}))
+                break
+
+                case 'GBP':
+                    moedaConvertida = valorEmReal / (BRL/GBP)
+                    console.log(BRL/GBP)
+                    mensagemFormatada(moedaConvertida.toLocaleString('en-GB', {style: 'currency', currency: 'GBP'}))
+                break
+
+                case 'BTC':
+                    moedaConvertida = valorEmReal / valorDoBitcoin
+                    mensagemFormatada(parseFloat(moedaConvertida).toFixed(5)) //Usamos o parsefloat pra ficar com um numero INTEIRO e o toFixed pra limitar o n° de casas decimais do BTC
+                break
+
+                default:
+                    aviso.textContent = 'Choose a currency'
+            }
+            isNaN(moedaConvertida) ? moedaConvertida = 0 : ''
+        }) // Fim do escoltador BTNCONVERTER
+
+    }) // Fim do .then(rates => { processar dados})
+}
+
+/* CHAMAR A API PRA PEGAR COTACOES */
+pegarDadosAPI()
+
+
 // Agora iremos deixar o campo de mensagem e todas opçoes zeradas pra que volte do 0
 btnLimpar.addEventListener('click', function() {
     valorDigitado.focus() // Coloca o foco no campo do NUMERO
     valorDigitado.value = '' //Apaga o que ta la dentro do campo value
-    aviso.textContent = 'Digite o valor, escolha a moeda e converter' // RE-INSERE A MENSAGEM LA EMBAIXO
+    aviso.textContent = 'Insert a value, choose the currency and convert' // RE-INSERE A MENSAGEM LA EMBAIXO
     moedaSelecionada[0].checked = false  //Aqui ira DESMARCAR todos os campos Marcados das moedas/radios
     moedaSelecionada[1].checked = false
     moedaSelecionada[2].checked = false
