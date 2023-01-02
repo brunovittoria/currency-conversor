@@ -25,8 +25,8 @@ let moedaConvertida = ''
 function mensagemFormatada(moedaConvertida) {
     isNaN(valorEmReal) ? valorEmReal = 0 : ''
     console.log("Moeda Convertida" + moedaConvertida)
-    aviso.textContent = "O valor " + (valorEmReal).toLocaleString('pt-br', { style: 'currency', currency: 'BRL'}) + 
-    " convertido em " + moedaEstrangeira + " é " + moedaConvertida
+    aviso.textContent = "The value of " + (valorEmReal).toLocaleString('pt-br', { style: 'currency', currency: 'BRL'}) + 
+    " converted to" + moedaEstrangeira + " is " + moedaConvertida
 }
 
 
