@@ -61,7 +61,7 @@ async function pegarDadosAPI() {
     .then(response => response.json())
     .then(rates => {
 
-        let { BRL, EUR, GBP, USD } = rates.conversion_rates
+        let { BRL, EUR, GBP, USD } = rates.conversion_rates //Esse atributo conversion_rates foi pego no JSON 
 
         btnConverter.addEventListener('click', () => {
             valorEmReal = parseFloat(valorDigitado.value)
@@ -78,7 +78,7 @@ async function pegarDadosAPI() {
                 case 'USD':
                     moedaConvertida = valorEmReal / BRL
                     console.log(BRL)
-                    mensagemFormatada(moedaConvertida.toLocaleString('en-US', {style: 'currency', currency: 'USD'}))
+                    mensagemFormatada(moedaConvertida.toLocaleString('en-US', {style: 'currency', currency: 'USD'})) // Aqui iremos atribuir o resultado monetario na MSG FORMATADA la de cima
                 break
 
                 case 'EUR':
@@ -101,7 +101,7 @@ async function pegarDadosAPI() {
                 default:
                     aviso.textContent = 'Choose a currency'
             }
-            isNaN(moedaConvertida) ? moedaConvertida = 0 : ''
+            isNaN(moedaConvertida) ? moedaConvertida = 0 : '' // Devemos deixar vazio dps do : pois se moedaConvertida for um numero devemos deixar o usuario inputar 
         }) // Fim do escoltador BTNCONVERTER
 
     }) // Fim do .then(rates => { processar dados})
